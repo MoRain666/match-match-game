@@ -1,0 +1,51 @@
+.containerForDiff{
+    display: flex;
+    width: 80%;
+    height: 28%;
+    margin-bottom: 2%;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-content: center;
+}
+.buttonForDiff{
+    width: 30%;
+    height: 100%;
+}
+
+.activeDiff{
+    background: purple;
+    color: lime;
+}
+.activeShirt{
+    background-color: lime;
+    width: 106px;
+    height: 148px;
+    border-radius: 10px;
+}
+.containerForShirts{
+    width: 80%;
+    height: 28%;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.shirt{
+    height: 100%;
+    width: 12%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.shirt:hover{
+    background-color: purple;
+    border-radius: 10px;
+}
+.ButtonsInSettings{
+    width: 40%;
+    height: 60%;
+}
+.buttonsContainerInSettings{
+    display: flex;
+    height: 30%;
+    justify-content: space-between;
+}

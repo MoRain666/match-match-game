@@ -1,0 +1,35 @@
+.LayoutForRecords{
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+table, td, th {    
+    border: 2px solid white;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+.DescriptionOfTheHighscoreTable{
+    width: 60%;
+    height: 9%;
+    margin-bottom: 1%;
+    margin-top: 0;
+}
+.ButtonsOfRecords{
+    width: 40%;
+    height: 14%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ButtonInHighscores{
+    width: 30%;
+    height: 100%;
+}

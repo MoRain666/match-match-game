@@ -1,0 +1,17 @@
+@import "../css/reset.css";
+@import "../css/menu.css" screen;
+@import "../css/registration.css" screen;
+@import "../css/records.css" screen;
+@import "../css/settings.css" screen;
+@import "../css/game.css" screen;
+.wrapper{
+    background-image: url("../images/backgrounds/elements.jpg");
+    background-repeat: no-repeat;
+    margin: 5px auto;
+    border-radius: 2%;
+    width: 1350px;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

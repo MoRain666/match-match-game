@@ -1,0 +1,121 @@
+.LayoutForGame{
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+.row{
+    display: flex;
+    width: 100%;
+    height: 16%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1%;
+}
+.card{
+    width: 7%;
+    height: 100%;
+}
+img{
+	width: 100%;
+	height: 100%;
+}
+.containerForTimer{
+    margin: 1% 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 40px;
+}
+.containerForButtonsInGame{
+    display: flex;
+    flex-flow: row nowrap;
+    height: 17%;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.ButtonInGame {
+    width: 14%;
+    height: 80%;
+}
+
+.clicked{
+    animation-name: flipInY;
+    animation-duration: .75s;
+}
+.matched{
+	animation-name: rubberBand;
+	animation-duration: .75s;
+}
+.unmatched{
+	animation-name: pulse;
+	animation-duration: .75s;
+}
+/*заматчились карты*/
+@keyframes rubberBand {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.25, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.75, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.15, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.05, .95, 1);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+/*плавный поворот карты*/
+@keyframes flipInY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
+}
+/*unmatched*/
+@keyframes pulse {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+		transform: scale3d(1.2, 1.2, 1.2);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
