@@ -43,8 +43,9 @@ class Game{
                 card.classList.add("clicked");
                 card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
             });
-           card.addEventListener("mouseup", () => {
+           card.addEventListener("click", () => {
             setTimeout(() => this.unMatched(),1400);
+            setTimeout(() => this.matched(),1400);
             card.classList.remove('unmatched');
             });
         }
@@ -142,4 +143,21 @@ class Game{
         }
     }
 
+    matched(){
+        if(document.getElementsByClassName('clicked').length > 1){
+            if(document.getElementsByClassName('clicked')[0].firstChild.src ==
+             document.getElementsByClassName('clicked')[1].firstChild.src){
+                let cardMatched =  document.getElementsByClassName('clicked');
+                while(document.getElementsByClassName('clicked').length > 0){
+                    cardMatched[0].classList.add('hidden');
+                    cardMatched[0].classList.remove('clicked');
+                    this.endOfGame();
+                }
+             }
+        }
+    }
+    endOfGame(){
+        let countOfCards = this.difficultyWidth * this.difficultyHeight;
+        if(document.getElementsByClassName('hidden').length == countOfCards){console.log('u win!');}
+    }
 }

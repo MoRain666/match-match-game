@@ -49,6 +49,9 @@ img{
 	animation-name: pulse;
 	animation-duration: .75s;
 }
+.hidden{
+	visibility: hidden;
+}
 /*заматчились карты*/
 @keyframes rubberBand {
 	from {
