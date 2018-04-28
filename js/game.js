@@ -15,32 +15,39 @@ class Game{
         layOut.classList.add('LayoutForGame');
         this.stopWatch();
         this.initCards();
-        this.logicOfGame();
         this.backButtonInGame();
         this.againGameButton();
     }
 
     initCards(){
-        for(let i = 1; i < this.difficultyHeight + 1; i++){
+        let randomIndexes = this.shuffle();
+        let indexOFArray = -1;
+        console.log(randomIndexes[randomIndexes.length - 1]);
+        for(let i = 0; i < this.difficultyHeight; i++){
             const rowCards = document.createElement("div");
             rowCards.classList.add("row");
             rowCards.id = `row${i}`;
             menuContainer.appendChild(rowCards);
-            for(let j = 1; j < this.difficultyWidth + 1; j++){
+            for(let j = 0; j < this.difficultyWidth; j++){
+                indexOFArray++;
                 const cellCard = document.createElement("div");
                 cellCard.classList.add("card");
-                cellCard.id = `${this.shuffle()}`;
+                cellCard.id = `card${indexOFArray}`;
                 cellCard.innerHTML = `<img src="./${this.back}" alt=""> `;
-                cellCard.addEventListener("click", () => {
-                    cellCard.classList.add("clicked");
-                    cellCard.innerHTML = `<img src="./images/shirts/shirt_${this.shuffle()}.png" alt="">`;
-                });
                 rowCards.appendChild(cellCard);
             }
         }
-    }
-    logicOfGame(){
-        
+        for(let i = 0; i < randomIndexes.length; i++){
+            let card = document.querySelector(`#card${i}`);
+            card.addEventListener("click", () => {
+                card.classList.add("clicked");
+                card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
+            });
+           card.addEventListener("mouseup", () => {
+            setTimeout(() => this.unMatched(),1400);
+            card.classList.remove('unmatched');
+            });
+        }
     }
 
     stopWatch(){
@@ -107,14 +114,32 @@ class Game{
 
     shuffle(){
         let countOfCards = this.difficultyWidth * this.difficultyHeight;
-        let arrayOfIndex = [];
+        let result = [];
+        let currentNumber = 1;
+        let compareRandom = (a,b) =>{
+            return Math.random() -0.5;
+        };
         for(let i = 0; i < countOfCards; i++){
-            let randomIndex = Math.floor(Math.random() * countOfCards / 2) + 1;
-            let randomPlace = Math.floor(Math.random() * countOfCards / 2) + 1;
-            if(arrayOfIndex.includes)
-            arrayOfIndex.push(randomIndex);
+            if(currentNumber == countOfCards / 2 + 1) currentNumber = 1;
+            result.push(currentNumber);
+            currentNumber++;
         }
-        return arrayOfIndex;
+        return result.sort(compareRandom);
+    }
+    unMatched(){
+        if(document.getElementsByClassName('clicked').length > 1){
+            let cardToHidden = document.querySelectorAll('.clicked');
+            if(!(document.getElementsByClassName('clicked')[0].firstChild.src ==
+             document.getElementsByClassName('clicked')[1].firstChild.src)){
+                 let i = 0;
+                while(document.getElementsByClassName('clicked').length > 0){
+                    cardToHidden[i].classList.add("unmatched");
+                    cardToHidden[i].innerHTML = `<img src="./${this.back}" alt="">`;
+                    cardToHidden[i].classList.remove('clicked');
+                    i++;
+                }
+             }
+        }
     }
 
 }
