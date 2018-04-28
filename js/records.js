@@ -110,4 +110,18 @@ class Records extends Registration{
         });
     }
 
+    sortRecords(){
+        let sortedArrayOfSeconds = [];
+        let numberOfHuman = [];
+        let result = {};
+        let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("people"))).length;
+        let ObjectOfElements = JSON.parse(localStorage.getItem("people"));
+        for(let i = 1; i < countOFPeople + 1; i++){
+            let totalSeconds = minutes * 60 + seconds;
+            sortedArrayOfSeconds.push(totalSeconds);
+            numberOfHuman.push(i);
+        }
+        sortedArrayOfSeconds.sort(function(a,b){return a-b});
+    }
+
 }

@@ -48,7 +48,7 @@ class Game{
                 }
             });
            card.addEventListener("click", () => {
-            setTimeout(() => this.unMatched(),1000);
+            setTimeout(() => this.unMatched(),2000);
             setTimeout(() => this.matched(),1400);
             card.classList.remove('unmatched');
             });
@@ -162,7 +162,29 @@ class Game{
     endOfGame(){
         let countOfCards = this.difficultyWidth * this.difficultyHeight;
         if(document.getElementsByClassName('hidden').length == countOfCards){
-            currentSettings.person.time = document.querySelector("#containerForTimer").textContent;
-            console.log('u win!');}
+            let minutes = parseInt(document.querySelector("#containerForTimer").textContent.split(":")[0]);
+            let seconds = parseInt(document.querySelector("#containerForTimer").textContent.split(":")[1]);
+            let totalSeconds = minutes * 60 + seconds;
+            currentSettings.person.time = totalSeconds;
+            this.toRecords();
+            console.log('u win!');
+        }
+            
     }
+
+    toRecords(){
+        let table = {};
+        if(localStorage.people == undefined){
+            table['1'] = currentSettings.person;
+            let serialobj = JSON.stringify(table);
+            window.localStorage.setItem("people",serialobj);
+        }else{
+            let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("people"))).length;
+            let ObjectOfElements = JSON.parse(localStorage.getItem("people"));
+            ObjectOfElements [`${countOFPeople + 1}`] = currentSettings.person;
+            let serialobj = JSON.stringify(ObjectOfElements);
+            window.localStorage.setItem("people",serialobj);
+        }
+    }
+
 }

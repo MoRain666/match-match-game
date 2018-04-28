@@ -38,30 +38,15 @@ class Registration{
                 alert('More than 25 symbols in forms!');
             }
             else{
-                let table = {};
                 let person = {};
                 person.firstName = firstName;
                 person.lastName = lastName;
                 person.email = email;
                 person.time = 0;
                 currentSettings.person = person;
-                if(localStorage.people == undefined){
-                    table['1'] = person;
-                    let serialobj = JSON.stringify(table);
-                    window.localStorage.setItem("people",serialobj);
-                }else{
-                    let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("people"))).length;
-                    let ObjectOfElements = JSON.parse(localStorage.getItem("people"));
-                    ObjectOfElements [`${countOFPeople + 1}`] = person;
-                    let serialobj = JSON.stringify(ObjectOfElements);
-                    window.localStorage.setItem("people",serialobj);
-                }
                 menu.clear();
                 let gameSettings = new GameSettings();
                 gameSettings.initSettings();
-                //do not forget to erase 2 lines with output
-                let returnObj = JSON.parse(localStorage.getItem("people"));
-                console.log(returnObj);
             }
             
         });
