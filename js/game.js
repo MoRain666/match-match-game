@@ -40,11 +40,15 @@ class Game{
         for(let i = 0; i < randomIndexes.length; i++){
             let card = document.querySelector(`#card${i}`);
             card.addEventListener("click", () => {
+                if(document.getElementsByClassName('clicked').length == 2){
+                    console.log('cant do that')
+                }else{
                 card.classList.add("clicked");
                 card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
+                }
             });
            card.addEventListener("click", () => {
-            setTimeout(() => this.unMatched(),1400);
+            setTimeout(() => this.unMatched(),1000);
             setTimeout(() => this.matched(),1400);
             card.classList.remove('unmatched');
             });
@@ -53,12 +57,11 @@ class Game{
 
     stopWatch(){
         const containerForTimer = document.createElement("div");
-        let seconds = 0, minutes = 0, t;
+        let seconds = 0, minutes = 0, countOfCards = this.difficultyWidth * this.difficultyHeight, t;
         containerForTimer.classList.add("containerForTimer");
         containerForTimer.id = "containerForTimer";
         containerForTimer.textContent = "00:00";
         menuContainer.appendChild(containerForTimer);
-
         let add = () =>{
             seconds++;
             if (seconds >= 60) {
@@ -71,7 +74,7 @@ class Game{
         };
 
         let timer = () =>{
-            t = setTimeout(add,1000);
+            if(!(document.getElementsByClassName('hidden').length == countOfCards)) t = setTimeout(add,1000);
         };
         
         timer();
@@ -158,6 +161,8 @@ class Game{
     }
     endOfGame(){
         let countOfCards = this.difficultyWidth * this.difficultyHeight;
-        if(document.getElementsByClassName('hidden').length == countOfCards){console.log('u win!');}
+        if(document.getElementsByClassName('hidden').length == countOfCards){
+            currentSettings.person.time = document.querySelector("#containerForTimer").textContent;
+            console.log('u win!');}
     }
 }
