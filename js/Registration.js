@@ -32,10 +32,9 @@ class Registration{
             let lastName = document.getElementsByTagName('input')[1].value;
             let email = document.getElementsByTagName('input')[2].value;
             if (firstName == "" || lastName == "" || email == ""){
-                //it is possible to screw the component
-                alert('Fill all fields!');
+                menu.notification('Fill all fields!');
             }else if(firstName.length > 26 || lastName.length > 25|| email.length > 25){
-                alert('More than 25 symbols in forms!');
+                menu.notification('More than 25 symbols in forms!');
             }
             else{
                 let person = {};

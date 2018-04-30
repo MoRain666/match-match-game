@@ -52,6 +52,20 @@ class Menu{
             document.querySelector("#menuContainer").removeChild(document.querySelector("#menuContainer").firstChild);
         }
     }
+
+    notification(string){
+        let notifiContainer = document.createElement("div");
+        notifiContainer.classList.add("alert");
+        notifiContainer.textContent = string;
+        menuContainer.appendChild(notifiContainer);
+        let close = document.createElement('span');
+        close.classList.add('closebtn');
+        close.innerHTML = '&times';
+        close.addEventListener("click" , () => {
+            notifiContainer.style.display='none';
+        });
+        notifiContainer.appendChild(close);
+    }
 }
 
 let menu = new Menu();

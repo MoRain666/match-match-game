@@ -8,11 +8,12 @@ class Records extends Registration{
             this.initLackOfRecords();
             this.initBackButtonInRecords();
         }else{
-        this.initDescriptionOfTheHighscoreTable();
-        this.initHighscoreTable();
-        this.initBackButtonInRecords();
-        this.unpackingRecords();
-        this.zeroingOfRecordsButton();
+            this.sortRecords();
+            this.initDescriptionOfTheHighscoreTable();
+            this.initHighscoreTable();
+            this.initBackButtonInRecords();
+            this.unpackingRecords();
+            this.zeroingOfRecordsButton();
         }
     }
 
@@ -22,7 +23,7 @@ class Records extends Registration{
         ButtonsContainer.classList.add("ButtonsOfRecords");
         ButtonsContainer.id = "ButtonsContainer";
         menuContainer.appendChild(ButtonsContainer);
-        this.initBackButton();
+        super.initBackButton();
         const backButton = document.querySelector("#Back");
         backButton.classList.add('ButtonInHighscores');
         backButton.addEventListener("click" , () => {
@@ -53,15 +54,15 @@ class Records extends Registration{
     }
 
     unpackingRecords(){
-        let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("people"))).length;
-        let arrayOfKeys = Object.keys(JSON.parse(localStorage.getItem("people")));
+        let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("records"))).length;
+        let arrayOfKeys = Object.keys(JSON.parse(localStorage.getItem("records")));
         if(countOFPeople < 10){
             for(let i = 0; i < countOFPeople; i++){
-                let firstName = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].firstName;
-                let lastName = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].lastName;
-                let email = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].email;
-                let time = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].time;
-                let arrayOfAttributes = [arrayOfKeys[i],firstName, lastName, email, time];
+                let firstName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].firstName;
+                let lastName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].lastName;
+                let email = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].email;
+                let time = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].time;
+                let arrayOfAttributes = [i + 1, firstName, lastName, email, time];
                 const tr = document.createElement('tr');
                 HighscoreTable.appendChild(tr);
                 for(let i = 0; i < arrayOfAttributes.length; i++){
@@ -111,17 +112,15 @@ class Records extends Registration{
     }
 
     sortRecords(){
-        let sortedArrayOfSeconds = [];
-        let numberOfHuman = [];
-        let result = {};
-        let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("people"))).length;
-        let ObjectOfElements = JSON.parse(localStorage.getItem("people"));
-        for(let i = 1; i < countOFPeople + 1; i++){
-            let totalSeconds = minutes * 60 + seconds;
-            sortedArrayOfSeconds.push(totalSeconds);
-            numberOfHuman.push(i);
+        let entries = Object.entries(JSON.parse(localStorage.getItem("people")));
+        let sorted = entries.sort((a, b) => a[1].time - b[1].time);
+        for(let i = 0; i < sorted.length; i++){
+            let minutes = Math.floor(sorted[i][1].time / 60);
+            let seconds = sorted[i][1].time - minutes * 60;
+            sorted[i][1].time = `${minutes}:${seconds}`;
         }
-        sortedArrayOfSeconds.sort(function(a,b){return a-b});
+        let serialObj = JSON.stringify(sorted);
+        localStorage.setItem('records',serialObj);
     }
 
 }

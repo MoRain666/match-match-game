@@ -22,7 +22,6 @@ class Game{
     initCards(){
         let randomIndexes = this.shuffle();
         let indexOFArray = -1;
-        console.log(randomIndexes[randomIndexes.length - 1]);
         for(let i = 0; i < this.difficultyHeight; i++){
             const rowCards = document.createElement("div");
             rowCards.classList.add("row");
@@ -167,7 +166,7 @@ class Game{
             let totalSeconds = minutes * 60 + seconds;
             currentSettings.person.time = totalSeconds;
             this.toRecords();
-            console.log('u win!');
+            menu.notification('You\'re a superstar! May today\'s success be the beginning of tomorrow\'s achievements.');
         }
             
     }
