@@ -41,8 +41,6 @@ class Game{
             let card = document.querySelector(`#card${i}`);
             card.addEventListener("click", () => {
                 if(document.getElementsByClassName('clicked').length < 2){
-                  /*  console.log('cant do that')
-                }else{*/
                 card.classList.add("clicked");
                 card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
                 }
