@@ -33,8 +33,8 @@ class Registration{
             let email = document.getElementsByTagName('input')[2].value;
             if (firstName == "" || lastName == "" || email == ""){
                 menu.notification('Fill all fields!');
-            }else if(firstName.length > 26 || lastName.length > 25|| email.length > 25){
-                menu.notification('More than 25 symbols in forms!');
+            }else if(firstName.length > 20 || lastName.length > 20 || email.length > 30){
+                menu.notification('More than 30 symbols in forms!');
             }
             else{
                 let person = {};
