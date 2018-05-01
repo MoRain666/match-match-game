@@ -72,7 +72,7 @@ class GameSettings{
         button.textContent = "Back to menu";
         buttonsContainerInSettings.appendChild(button);
         button.addEventListener("click" , () => {
-            menu.clear();
+            clear();
             menu.initAbout();
             menu.initGameButton();
             menu.initRecordsButton();
@@ -87,9 +87,9 @@ class GameSettings{
         buttonsContainerInSettings.appendChild(button);
         button.addEventListener("click" , () => {
             if(document.getElementsByClassName('activeDiff').length == 0 || document.getElementsByClassName('activeShirt').length == 0 ){
-                alert('no complexity or shirt chosen!');
+                notification('no complexity or shirt chosen!');
             }else{
-                menu.clear();
+                clear();
                 let game = new Game(currentSettings.diff.width,currentSettings.diff.height, 
                 currentSettings.shirt, currentSettings.person.firstName, currentSettings.person.lastName,
                 currentSettings.person.email);

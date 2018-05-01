@@ -32,9 +32,9 @@ class Registration{
             let lastName = document.getElementsByTagName('input')[1].value;
             let email = document.getElementsByTagName('input')[2].value;
             if (firstName == "" || lastName == "" || email == ""){
-                menu.notification('Fill all fields!');
+                notification('Fill all fields!');
             }else if(firstName.length > 20 || lastName.length > 20 || email.length > 30){
-                menu.notification('More than 30 symbols in forms!');
+                notification('More than 30 symbols in forms!');
             }
             else{
                 let person = {};
@@ -43,7 +43,7 @@ class Registration{
                 person.email = email;
                 person.time = 0;
                 currentSettings.person = person;
-                menu.clear();
+                clear();
                 let gameSettings = new GameSettings();
                 gameSettings.initSettings();
             }
@@ -80,7 +80,7 @@ class Registration{
         button.textContent = "Back";
         ButtonsContainer.appendChild(button);
         button.addEventListener("click" , () => {
-            menu.clear();
+            clear();
             menu.initAbout();
             menu.initGameButton();
             menu.initRecordsButton();

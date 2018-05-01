@@ -13,10 +13,11 @@ class Game{
     initGame(){
         const layOut = document.querySelector('#menuContainer');
         layOut.classList.add('LayoutForGame');
-        this.stopWatch();
+        this.initStopWatch();
         this.initCards();
-        this.backButtonInGame();
-        this.againGameButton();
+        this.initBackButtonToMenu();
+        this.initBackButton();
+        this.initAgainGameButton();
     }
 
     initCards(){
@@ -39,9 +40,9 @@ class Game{
         for(let i = 0; i < randomIndexes.length; i++){
             let card = document.querySelector(`#card${i}`);
             card.addEventListener("click", () => {
-                if(document.getElementsByClassName('clicked').length == 2){
-                    console.log('cant do that')
-                }else{
+                if(document.getElementsByClassName('clicked').length < 2){
+                  /*  console.log('cant do that')
+                }else{*/
                 card.classList.add("clicked");
                 card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
                 }
@@ -54,7 +55,7 @@ class Game{
         }
     }
 
-    stopWatch(){
+    initStopWatch(){
         const containerForTimer = document.createElement("div");
         let seconds = 0, minutes = 0, countOfCards = this.difficultyWidth * this.difficultyHeight, t;
         containerForTimer.classList.add("containerForTimer");
@@ -79,7 +80,7 @@ class Game{
         timer();
     }
 
-    backButtonInGame(){
+    initBackButtonToMenu(){
         const containerForButtonsInGame = document.createElement("div");
         containerForButtonsInGame.classList.add("containerForButtonsInGame");
         containerForButtonsInGame.id = "containerForButtonsInGame";
@@ -90,7 +91,7 @@ class Game{
         button.textContent = "Back to menu";
         button.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForGame");
-            menu.clear();
+            clear();
             menu.initAbout();
             menu.initGameButton();
             menu.initRecordsButton();
@@ -98,14 +99,29 @@ class Game{
         containerForButtonsInGame.appendChild(button);
     }
 
-    againGameButton(){
+    initBackButton(){
+        const button = document.createElement("button");
+        button.classList.add("ButtonInGame");
+        button.classList.add("Buttons");
+        button.textContent = "Back";
+        button.addEventListener("click" , () => {
+            document.querySelector('#menuContainer').classList.remove("LayoutForGame");
+            clear();
+            let gameSettings = new GameSettings();
+            gameSettings.initSettings();
+        });
+        containerForButtonsInGame.appendChild(button);
+
+    }
+
+    initAgainGameButton(){
         const button = document.createElement("button");
         button.classList.add("ButtonInGame");
         button.classList.add("Buttons");
         button.textContent = "Again";
         button.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForGame");
-            menu.clear();
+            clear();
             let game = new Game(currentSettings.diff.width,currentSettings.diff.height, 
                 currentSettings.shirt, currentSettings.person.firstName, currentSettings.person.lastName,
                 currentSettings.person.email);
@@ -166,7 +182,7 @@ class Game{
             let totalSeconds = minutes * 60 + seconds;
             currentSettings.person.time = totalSeconds;
             this.toRecords();
-            menu.notification('You\'re a superstar! May today\'s success be the beginning of tomorrow\'s achievements.');
+            notification('You\'re a superstar! May today\'s success be the beginning of tomorrow\'s achievements.');
         }
             
     }

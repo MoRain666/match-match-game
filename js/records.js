@@ -105,7 +105,7 @@ class Records extends Registration{
         button.textContent = "Reset Records";
         ButtonsContainer.appendChild(button);
         button.addEventListener("click" , () => {
-            menu.clear();
+            clear();
             localStorage.clear();
             this.initRecords();
         });
