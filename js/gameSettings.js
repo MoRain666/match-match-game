@@ -4,19 +4,13 @@ class GameSettings{
     initSettings(){
         this.initDifficulty();
         this.initShirts();
-        const buttonsContainerInSettings = document.createElement("div");
-        buttonsContainerInSettings.classList.add("buttonsContainerInSettings");
-        buttonsContainerInSettings.id = "buttonsContainerInSettings";
-        menuContainer.appendChild(buttonsContainerInSettings);
+        container("div", ["buttonsContainerInSettings"], "buttonsContainerInSettings", menuContainer);
         this.initStartGameButton();
         this.initBackButtonInSettings();
     }
 
     initShirts(){
-        const containerForShirts = document.createElement("div");
-        containerForShirts.classList.add("containerForShirts");
-        containerForShirts.id = "containerForShirts";
-        menuContainer.appendChild(containerForShirts);
+        container("div", ["containerForShirts"], "containerForShirts", menuContainer);
         for(let i = 0; i < Config.backs.length; i++){
             const shirt = document.createElement("div");
             shirt.classList.add("shirt");
@@ -39,10 +33,7 @@ class GameSettings{
 
     }
     initDifficulty(){
-        const containerForDiff = document.createElement("div");
-        containerForDiff.classList.add("containerForDiff");
-        containerForDiff.id = "containerForDiff";
-        menuContainer.appendChild(containerForDiff);
+        container("div", ["containerForDiff"], "containerForDiff", menuContainer);
         for(let i = 0; i < Config.diff.length; i++){
             const buttonForDiff = document.createElement("button");
             buttonForDiff.classList.add("Buttons");
@@ -66,12 +57,8 @@ class GameSettings{
         }
     }
     initBackButtonInSettings(){
-        const button = document.createElement("button");
-        button.classList.add("Buttons");
-        button.classList.add("ButtonsInSettings");
-        button.textContent = "Back to menu";
-        buttonsContainerInSettings.appendChild(button);
-        button.addEventListener("click" , () => {
+        button(["Buttons", "ButtonsInSettings"], "Back to menu", "backToMenu", buttonsContainerInSettings);
+        backToMenu.addEventListener("click" , () => {
             clear();
             menu.initAbout();
             menu.initGameButton();
@@ -80,12 +67,8 @@ class GameSettings{
     }
 
     initStartGameButton(){
-        const button = document.createElement("button");
-        button.classList.add("Buttons");
-        button.classList.add("ButtonsInSettings");
-        button.textContent = "Start Game";
-        buttonsContainerInSettings.appendChild(button);
-        button.addEventListener("click" , () => {
+        button(["Buttons", "ButtonsInSettings"], "Start Game", "startGameButton", buttonsContainerInSettings);
+        startGameButton.addEventListener("click" , () => {
             if(document.getElementsByClassName('activeDiff').length == 0 || document.getElementsByClassName('activeShirt').length == 0 ){
                 notification('no complexity or shirt chosen!');
             }else{

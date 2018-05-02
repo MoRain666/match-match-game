@@ -2,7 +2,7 @@
 class Menu{
 
     initMenu(){
-        container("main", "menuContainer", "menuContainer", wrapper);
+        container("main", ["menuContainer"], "menuContainer", wrapper);
         this.initAbout();
         this.initGameButton();
         this.initRecordsButton();
@@ -27,7 +27,7 @@ class Menu{
     }
 
     initAbout(){
-        container("div", "about", "aboutContainer", menuContainer);
+        container("div", ["about"], "aboutContainer", menuContainer);
         container("p", null, "aboutContent", aboutContainer);
         aboutContent.textContent = "Hi, you came in match-match game, here you will wasted time (no), press the button \"New game \" and follow further instructions!";
     }

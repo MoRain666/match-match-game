@@ -2,32 +2,20 @@
 class Registration{
 
     initRules(){
-        const rules = document.createElement('div');
-        const ButtonsContainer = document.createElement('div');
-        const containerCommunications = document.createElement('div');
-        ButtonsContainer.classList.add("ButtonsContainer");
-        ButtonsContainer.id = "ButtonsContainer";
-        rules.classList.add("rules");
-        rules.id = "rules";
-        rules.textContent = "You have to fill out contact details, and also choose a card shirt and complexity, after then the game will start, the timer will go, you have to find pairs as soon as possible, GOOD LUCK AND HAVE A FUN !";
-        menuContainer.appendChild(rules);
-        containerCommunications.classList.add("containerCommunications");
-        containerCommunications.id = "containerCommunications";
-        menuContainer.appendChild(containerCommunications);
+        container("div", ["rules"], "rules", menuContainer);
+        rules.textContent = "You have to fill out contact details, and also choose a card shirt and complexity," +
+        "after then the game will start, the timer will go, you have to find pairs as soon as possible," +
+        " GOOD LUCK AND HAVE A FUN !";
+        container("div", ["containerCommunications"], "containerCommunications", menuContainer);
         this.initCommunications();
-        containerCommunications.appendChild(ButtonsContainer);
+        container("div", ["ButtonsContainer"], "ButtonsContainer", containerCommunications);
         this.initBackButton();
         this.initNext();
     }
 
     initNext(){
-        const next = document.createElement('button');
-        next.classList.add("Buttons");
-        next.id = "next";
-        next.textContent = "Next";
-        ButtonsContainer.appendChild(next);
+        button(["Buttons"], "Next", "next", ButtonsContainer);
         next.addEventListener("click" , () => {
-            //Do not forget to record the records at the end of the game
             let firstName = document.getElementsByTagName('input')[0].value;
             let lastName = document.getElementsByTagName('input')[1].value;
             let email = document.getElementsByTagName('input')[2].value;
@@ -47,16 +35,12 @@ class Registration{
                 let gameSettings = new GameSettings();
                 gameSettings.initSettings();
             }
-            
         });
     }
 
     initCommunications(){
         const attributes = ["First Name", "Last Name", "Email"];
-        const form = document.createElement('form');
-        containerCommunications.appendChild(form);
-        form.classList.add("communications");
-        form.id = "communications";
+        container("form", ["communications"], "communications", containerCommunications);
         for(let i = 0; i < attributes.length; i++){
             const input = document.createElement('input');
             const nameInput = document.createElement('h3');
@@ -74,12 +58,8 @@ class Registration{
     }
 
     initBackButton(){
-        const button = document.createElement('button');
-        button.classList.add("Buttons");
-        button.id = "Back";
-        button.textContent = "Back";
-        ButtonsContainer.appendChild(button);
-        button.addEventListener("click" , () => {
+        button(["Buttons"], "Back", "back", ButtonsContainer);
+        back.addEventListener("click" , () => {
             clear();
             menu.initAbout();
             menu.initGameButton();

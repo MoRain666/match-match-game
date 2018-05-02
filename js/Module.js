@@ -1,5 +1,5 @@
 //modules methods
-function button(classOfButton, nameOfButton, id, location){
+let button = (classOfButton, nameOfButton, id, location) => {
     const button = document.createElement('button');
     for(let i = 0; i < classOfButton.length;i++){
         button.classList.add(classOfButton[i]);
@@ -8,20 +8,24 @@ function button(classOfButton, nameOfButton, id, location){
     button.id = id;
     location.appendChild(button);
 }
-function container(element, classOfContainer, id, location){
+let container = (element, classOfContainer, id, location) => {
     const container = document.createElement(element);
-    if(classOfContainer != null) container.classList.add(classOfContainer);
+    if(classOfContainer != null){
+        for(let i = 0; i < classOfContainer.length; i++){
+            container.classList.add(classOfContainer[i]);
+        }
+    }
     if( id != null) container.id = id;
     location.appendChild(container);
 }
 
-function clear(){
+let clear = () => {
     while (document.querySelector("#menuContainer").firstChild) {
         document.querySelector("#menuContainer").removeChild(document.querySelector("#menuContainer").firstChild);
     }
 }
-function notification(string){
-    let notifiContainer = document.createElement("div");
+let notification = (string) => {
+    const notifiContainer = document.createElement("div");
     notifiContainer.classList.add("alert");
     notifiContainer.textContent = string;
     menuContainer.appendChild(notifiContainer);

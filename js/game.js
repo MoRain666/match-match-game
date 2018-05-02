@@ -45,21 +45,18 @@ class Game{
                 card.innerHTML = `<img src="./images/shirts/shirt_${randomIndexes[i]}.png" alt="">`;
                 }
             });
-           card.addEventListener("click", () => {
-            setTimeout(() => this.unMatched(),2000);
-            setTimeout(() => this.matched(),1400);
-            card.classList.remove('unmatched');
+            card.addEventListener("click", () => {
+                setTimeout(() => this.unMatched(),2000);
+                card.classList.remove('unmatched');
+                setTimeout(() => this.matched(),1400);
             });
         }
     }
 
     initStopWatch(){
-        const containerForTimer = document.createElement("div");
         let seconds = 0, minutes = 0, countOfCards = this.difficultyWidth * this.difficultyHeight, t;
-        containerForTimer.classList.add("containerForTimer");
-        containerForTimer.id = "containerForTimer";
+        container("div", ["containerForTimer"], "containerForTimer", menuContainer);
         containerForTimer.textContent = "00:00";
-        menuContainer.appendChild(containerForTimer);
         let add = () =>{
             seconds++;
             if (seconds >= 60) {
@@ -79,45 +76,30 @@ class Game{
     }
 
     initBackButtonToMenu(){
-        const containerForButtonsInGame = document.createElement("div");
-        containerForButtonsInGame.classList.add("containerForButtonsInGame");
-        containerForButtonsInGame.id = "containerForButtonsInGame";
-        menuContainer.appendChild(containerForButtonsInGame);
-        const button = document.createElement("button");
-        button.classList.add("ButtonInGame");
-        button.classList.add("Buttons");
-        button.textContent = "Back to menu";
-        button.addEventListener("click" , () => {
+        container("div", ["containerForButtonsInGame"], "containerForButtonsInGame", menuContainer);
+        button(["ButtonInGame", "Buttons"], "Back to menu", "backToMenuButton", containerForButtonsInGame);
+        backToMenuButton.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForGame");
             clear();
             menu.initAbout();
             menu.initGameButton();
             menu.initRecordsButton();
         });
-        containerForButtonsInGame.appendChild(button);
     }
 
     initBackButton(){
-        const button = document.createElement("button");
-        button.classList.add("ButtonInGame");
-        button.classList.add("Buttons");
-        button.textContent = "Back";
-        button.addEventListener("click" , () => {
+        button(["ButtonInGame","Buttons" ], "Back", "backButtonInGame", containerForButtonsInGame);
+        backButtonInGame.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForGame");
             clear();
             let gameSettings = new GameSettings();
             gameSettings.initSettings();
         });
-        containerForButtonsInGame.appendChild(button);
-
     }
 
     initAgainGameButton(){
-        const button = document.createElement("button");
-        button.classList.add("ButtonInGame");
-        button.classList.add("Buttons");
-        button.textContent = "Again";
-        button.addEventListener("click" , () => {
+        button (["ButtonInGame","Buttons" ], "Again", "againButtonInGame", containerForButtonsInGame);
+        againButtonInGame.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForGame");
             clear();
             let game = new Game(currentSettings.diff.width,currentSettings.diff.height, 
@@ -125,8 +107,6 @@ class Game{
                 currentSettings.person.email);
             game.initGame();
         });
-        containerForButtonsInGame.appendChild(button);
-    
     }
 
     shuffle(){
@@ -161,9 +141,9 @@ class Game{
 
     matched(){
         if(document.getElementsByClassName('clicked').length > 1){
+            let cardMatched =  document.getElementsByClassName('clicked');
             if(document.getElementsByClassName('clicked')[0].firstChild.src ==
              document.getElementsByClassName('clicked')[1].firstChild.src){
-                let cardMatched =  document.getElementsByClassName('clicked');
                 while(document.getElementsByClassName('clicked').length > 0){
                     cardMatched[0].classList.add('hidden');
                     cardMatched[0].classList.remove('clicked');

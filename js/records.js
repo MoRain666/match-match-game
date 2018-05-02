@@ -12,19 +12,15 @@ class Records extends Registration{
             this.initDescriptionOfTheHighscoreTable();
             this.initHighscoreTable();
             this.initBackButtonInRecords();
-            this.unpackingRecords();
             this.zeroingOfRecordsButton();
+            this.unpackingRecords();
         }
     }
 
     initBackButtonInRecords(){
-        const ButtonsContainer = document.createElement('div');
-        ButtonsContainer.classList.add("ButtonsContainer");
-        ButtonsContainer.classList.add("ButtonsOfRecords");
-        ButtonsContainer.id = "ButtonsContainer";
-        menuContainer.appendChild(ButtonsContainer);
+        container("div", ["ButtonsContainer", "ButtonsOfRecords"], "ButtonsContainer", menuContainer);
         super.initBackButton();
-        const backButton = document.querySelector("#Back");
+        const backButton = document.querySelector("#back");
         backButton.classList.add('ButtonInHighscores');
         backButton.addEventListener("click" , () => {
             document.querySelector('#menuContainer').classList.remove("LayoutForRecords");
@@ -32,20 +28,14 @@ class Records extends Registration{
     }
 
     initDescriptionOfTheHighscoreTable(){
-        const div = document.createElement("div");
-        div.classList.add("about");
-        div.classList.add("DescriptionOfTheHighscoreTable");
-        div.textContent = "Here are the top 10 players!";
-        menuContainer.appendChild(div);
+        container("div", ["about", "DescriptionOfTheHighscoreTable"], "DescriptionOfTheHighscoreTable", menuContainer);
+        DescriptionOfTheHighscoreTable.textContent = "Here are the top 10 players!";
     }
 
     initHighscoreTable(){
-        const table = document.createElement('table');
-        const tr = document.createElement('tr');
+        container('table', null, "HighscoreTable", menuContainer);
+        container('tr', null, "tr", HighscoreTable);
         const arrayOfAttributes = ["Number","First Name", "Last Name", "Email", "Time"];
-        table.id = "HighscoreTable";
-        menuContainer.appendChild(table);
-        table.appendChild(tr);
         for(let i = 0; i < arrayOfAttributes.length; i++){
             const td = document.createElement('td');
             td.textContent = arrayOfAttributes[i];
@@ -56,61 +46,46 @@ class Records extends Registration{
     unpackingRecords(){
         let countOFPeople = Object.keys(JSON.parse(localStorage.getItem("records"))).length;
         let arrayOfKeys = Object.keys(JSON.parse(localStorage.getItem("records")));
-        if(countOFPeople < 10){
-            for(let i = 0; i < countOFPeople; i++){
-                let firstName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].firstName;
-                let lastName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].lastName;
-                let email = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].email;
-                let time = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].time;
-                let arrayOfAttributes = [i + 1, firstName, lastName, email, time];
-                const tr = document.createElement('tr');
-                HighscoreTable.appendChild(tr);
-                for(let i = 0; i < arrayOfAttributes.length; i++){
-                    const td = document.createElement('td');
-                    td.textContent = arrayOfAttributes[i];
-                    tr.appendChild(td);
-                }
+        if(countOFPeople > 10){
+            let array = JSON.parse(localStorage.getItem("records"));
+            for(let i = 10; i < array.length; i++){
+                array.pop();
             }
-        }else{
-            //TODO:Do not forget to rework the section, so as not to look at how many people are in records
-            for(let i = 0; i < 10; i++){
-                let firstName = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].firstName;
-                let lastName = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].lastName;
-                let email = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].email;
-                let time = JSON.parse(localStorage.getItem("people"))[arrayOfKeys[i]].time;
-                let arrayOfAttributes = [arrayOfKeys[i],firstName, lastName, email, time];
-                const tr = document.createElement('tr');
-                HighscoreTable.appendChild(tr);
-                for(let j = 0; j < arrayOfAttributes.length; j++){
-                    const td = document.createElement('td');
-                    td.textContent = arrayOfAttributes[j];
-                    tr.appendChild(td);
-                }
+            let serialObj = JSON.stringify(array);
+            localStorage.setItem('records',serialObj);    
+        }
+        countOFPeople = Object.keys(JSON.parse(localStorage.getItem("records"))).length;
+        for(let i = 0; i < countOFPeople; i++){
+            let firstName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].firstName;
+            let lastName = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].lastName;
+            let email = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].email;
+            let time = JSON.parse(localStorage.getItem("records"))[arrayOfKeys[i]][1].time;
+            let arrayOfAttributes = [i + 1,firstName, lastName, email, time];
+            const tr = document.createElement('tr');
+            HighscoreTable.appendChild(tr);
+            for(let j = 0; j < arrayOfAttributes.length; j++){
+                const td = document.createElement('td');
+                td.textContent = arrayOfAttributes[j];
+                tr.appendChild(td);
             }
         }
     }
 
     initLackOfRecords(){
-        const div = document.createElement('div');
-        div.classList.add("about");
-        div.classList.add("DescriptionOfTheHighscoreTable");
-        div.textContent = "Play to see the records here!";
-        menuContainer.appendChild(div);
+        container("div", ["about", "DescriptionOfTheHighscoreTable"], "lackOfRecords", menuContainer);
+        lackOfRecords.textContent = "Play to see the records here!";
     }
 
     zeroingOfRecordsButton(){
-        const button = document.createElement('button');
-        button.classList.add("ButtonInHighscores");
-        button.classList.add("Buttons");
-        button.textContent = "Reset Records";
-        ButtonsContainer.appendChild(button);
-        button.addEventListener("click" , () => {
+        button(["ButtonInHighscores", "Buttons"], "Reset Records", "resetRecords", ButtonsContainer);
+        resetRecords.addEventListener("click" , () => {
             clear();
             localStorage.clear();
             this.initRecords();
         });
     }
 
+    //sorting records method
     sortRecords(){
         let entries = Object.entries(JSON.parse(localStorage.getItem("people")));
         let sorted = entries.sort((a, b) => a[1].time - b[1].time);
