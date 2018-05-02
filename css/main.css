@@ -6,7 +6,7 @@
 @import "../css/settings.css" screen;
 @import "../css/game.css" screen;
 .wrapper{
-    background-image: url("../images/backgrounds/elements.jpg");
+    background-image: url("../images/backgrounds/backich.jpg");
     background-repeat: no-repeat;
     margin: 5px auto;
     border-radius: 2%;

@@ -7,7 +7,8 @@ let button = (classOfButton, nameOfButton, id, location) => {
     button.textContent = nameOfButton;
     button.id = id;
     location.appendChild(button);
-}
+};
+
 let container = (element, classOfContainer, id, location) => {
     const container = document.createElement(element);
     if(classOfContainer != null){
@@ -17,13 +18,14 @@ let container = (element, classOfContainer, id, location) => {
     }
     if( id != null) container.id = id;
     location.appendChild(container);
-}
+};
 
 let clear = () => {
     while (document.querySelector("#menuContainer").firstChild) {
         document.querySelector("#menuContainer").removeChild(document.querySelector("#menuContainer").firstChild);
     }
-}
+};
+
 let notification = (string) => {
     const notifiContainer = document.createElement("div");
     notifiContainer.classList.add("alert");
@@ -36,4 +38,5 @@ let notification = (string) => {
         notifiContainer.style.display='none';
     });
     notifiContainer.appendChild(close);
-}
+    setTimeout(() => notifiContainer.style.display='none',10000);
+};
